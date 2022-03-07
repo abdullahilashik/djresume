@@ -20,7 +20,7 @@ class SkillAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['user']
 
 
 @admin.register(Certificate)

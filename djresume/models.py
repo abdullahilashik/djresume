@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Skill(models.Model):
@@ -28,6 +30,9 @@ class UserProfile(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     skills = models.ManyToManyField(Skill, blank=True)
+    age = models.IntegerField(default=18)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=120, default='Bangladesh')
     cv = models.FileField(blank=True, null=True, upload_to='cv')
 
     def __str__(self):
@@ -148,3 +153,9 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        userprofile = UserProfile.objects.create(user=instance)
