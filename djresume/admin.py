@@ -8,9 +8,15 @@ from .models import (
     Blog,
     Portfolio,
     Testimonial,
-    ContactProfile
+    ContactProfile,
+    SocialMedia
 
 )
+
+
+@admin.register(SocialMedia)
+class SocialMediaAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'link')
 
 
 @admin.register(Skill)

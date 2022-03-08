@@ -12,6 +12,7 @@ class HomepageTemplateView(generic.TemplateView):
         context['skills'] = Skill.objects.all()
         context['form'] = ContactForm()
         context['testimonials'] = Testimonial.objects.all()
+        context['socialmedias'] = SocialMedia.objects.all()
         return context
 
 

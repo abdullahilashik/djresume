@@ -32,6 +32,7 @@ class UserProfile(models.Model):
     skills = models.ManyToManyField(Skill, blank=True)
     age = models.IntegerField(default=18)
     phone = models.CharField(max_length=20, blank=True, null=True)
+    skype = models.CharField(max_length=30, blank=True, null=True)
     address = models.CharField(max_length=120, default='Bangladesh')
     cv = models.FileField(blank=True, null=True, upload_to='cv')
 
@@ -153,6 +154,46 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SocialMedia(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
+
+class ProjectStack(models.Model):
+    name = models.CharField(max_length=30, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ProjectCategory(models.Model):
+    name = models.CharField(max_length=50, blank=True, null=True)
+    slug = models.SlugField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Project(models.Model):
+    title = models.CharField(max_length=120, blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='projects')
+    description = models.TextField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+    project_stack = models.ManyToManyField(ProjectStack)
+    category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
 
 @receiver(post_save, sender=User)
