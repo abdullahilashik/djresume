@@ -9,9 +9,35 @@ from .models import (
     Portfolio,
     Testimonial,
     ContactProfile,
-    SocialMedia
+    SocialMedia, Education, Employment,
+    ProjectCategory, ProjectStack, Project
 
 )
+
+
+@admin.register(ProjectCategory)
+class ProjectCategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ProjectStack)
+class ProjectStackAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Education)
+class EducationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'year_start', 'year_end', 'is_year_present', 'timestamp')
+
+
+@admin.register(Employment)
+class EmploymentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'year_start', 'year_end', 'is_year_present', 'timestamp')
 
 
 @admin.register(SocialMedia)

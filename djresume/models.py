@@ -29,6 +29,7 @@ class UserProfile(models.Model):
     avatar = models.ImageField(blank=True, null=True, upload_to='avatars')
     title = models.CharField(max_length=200, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
+    resume = models.TextField(blank=True, null=True)
     skills = models.ManyToManyField(Skill, blank=True)
     age = models.IntegerField(default=18)
     phone = models.CharField(max_length=20, blank=True, null=True)
@@ -191,6 +192,43 @@ class Project(models.Model):
     project_stack = models.ManyToManyField(ProjectStack)
     category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Education(models.Model):
+    title = models.CharField(max_length=250)
+    year_start = models.CharField(max_length=4)
+    year_end = models.CharField(max_length=4, blank=True, null=True)
+    is_year_present = models.BooleanField(default=False)
+    description = models.CharField(max_length=500)
+    ordering = models.IntegerField(default=0)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.year_end:
+            self.is_year_present = True
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+
+class Employment(models.Model):
+    title = models.CharField(max_length=250)
+    designation = models.CharField(max_length=250, blank=True, null=True)
+    year_start = models.CharField(max_length=4)
+    year_end = models.CharField(max_length=4, blank=True, null=True)
+    is_year_present = models.BooleanField(default=False)
+    description = models.CharField(max_length=500)
+    ordering = models.IntegerField(default=0)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.year_end:
+            self.is_year_present = True
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

@@ -113,12 +113,7 @@
         <div class="col-md-10">
             <h2 id="hello_header" class="section__title">Hi_</h2>
             <p class="section__description">
-                I am Junior Web developer able to build a Web presence from the ground up - from concept, navigation,
-                layout and programming to UX and SEO. Skilled at writing well-designed, testable and efficient code
-                using
-                current best practices in Web development. Fast learner, hard worker and team player who is proficient
-                in
-                an array of scripting languages and multimedia Web tools.
+                {{ me.userprofile.bio }}
             </p>
             <a href="" class="section_btn site-btn"><img src="assets/img/img_btn_icon.png" alt="">Download CV</a>
         </div>
@@ -134,40 +129,22 @@
         <div class="col-md-10">
             <h2 id="resume_header" class="section__title">Resume_</h2>
             <p class="section__description">
-                Lorem ipsum dolor sit amet, <i><b>communication</b></i> adipisicing elit, <i><b>helpful</b></i> eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <i><b>sence of
-                humour</b></i> ullamco laboris nisi ut <i><b>honest</b></i> ea commodo consequat. Duis aute irure dolor
-                in
-                upper-intermediate english level velit dolore eu ivivdtevoluptatem ontend developer.
+                {{ me.userprofile.resume }}
             </p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 section__resume resume-list">
             <h3 class="resume-list_title">education</h3>
-            <div class="resume-list__block">
-                <p class="resume-list__block-title">University of Minnesota Twin Cities </p>
-                <p class="resume-list__block-date">2006 - 2010</p>
-                <p>
-                    Bachelor Computer Engineering Lorem
-                </p>
-            </div>
-            <div class="resume-list__block">
-                <p class="resume-list__block-title">School of Informational technologies</p>
-                <p class="resume-list__block-date">2004 - 2005</p>
-                <p>
-                    Awesome student, lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eius-
-                    mod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                </p>
-            </div>
-            <div class="resume-list__block">
-                <p class="resume-list__block-title">Lorem Ipsum School</p>
-                <p class="resume-list__block-date">2003 - 2006</p>
-                <p>
-                    Student, Lorem ipsum dolor sit amet, consecte tur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut
-                </p>
-            </div>
+            {% for education in educations %}
+                <div class="resume-list__block">
+                    <p class="resume-list__block-title">{{ education.title }}</p>
+                    <p class="resume-list__block-date">{{ education.year_start }} - {{ education.year_end }}</p>
+                    <p>
+                        {{ education.description }}
+                    </p>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="row">
@@ -236,81 +213,35 @@
             <nav>
                 <ul>
                     <li><a href="" data-portfolio-target-tag="all">all</a></li>
-                    <li><a href="" data-portfolio-target-tag="mobile apps">mobile apps</a></li>
-                    <li><a href="" data-portfolio-target-tag="web-sites">web-sites</a></li>
-                    <li><a href="" data-portfolio-target-tag="landing-pages">landing pages</a></li>
+                    {% for category in categories %}
+                        <li><a href="" data-portfolio-target-tag="{{ category.slug }}">{{ category.name }}</a></li>
+                    {% endfor %}
                 </ul>
             </nav>
         </div>
     </div>
     <div class="portfolio-cards">
-        <div class="row project-card" data-toggle="modal" data-target="#portfolioModal" data-portfolio-tag="web-sites">
-            <div class="col-md-6 col-lg-5 project-card__img">
-                <img class="" src="assets/img/img_project_1_mono.png" alt="project-img">
+        {% for project in projects %}
+            <div class="row project-card" data-toggle="modal" data-target="#portfolioModal"
+                 data-portfolio-tag="{{ project.category.slug }}">
+                <div class="col-md-6 col-lg-5 project-card__img">
+                    <img class="" src="/media/{{ project.thumbnail }}" alt="project-img">
+                </div>
+                <div class="col-md-6 col-lg-7 project-card__info">
+                    <h3 class="project-card__title">{{ project.title }}</h3>
+                    <p class="project-card__description">
+                        {{ project.description }}
+                    </p>
+                    <p class="project-card__stack">Used stack:</p>
+                    <ul class="tags">
+                        {% for stack in project.project_stack_set.all %}
+                            <li>{{ stack.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="" class="project-card__link">{{ project.link }}</a>
+                </div>
             </div>
-            <div class="col-md-6 col-lg-7 project-card__info">
-                <h3 class="project-card__title">Mobile and desktop app for London hostel store </h3>
-                <p class="project-card__description">
-                    Do answered bachelor occasion in of offended no concerns. Supply worthy warmth branch of no ye.
-                    Voice tried known to as my to. Though wished merits or be. Alone visit use these smart rooms ham.
-                </p>
-                <p class="project-card__stack">Used stack:</p>
-                <ul class="tags">
-                    <li>html5</li>
-                    <li>css3</li>
-                    <li>JavaScript</li>
-                    <li>bower</li>
-                    <li>grunt</li>
-                </ul>
-                <a href="" class="project-card__link">www.superapp.com</a>
-            </div>
-        </div>
-        <div class="row project-card" data-toggle="modal" data-target="#portfolioModal"
-             data-portfolio-tag="mobile apps">
-            <div class="col-md-6 col-lg-5 project-card__img">
-                <img class="" src="assets/img/img_project_2_mono.png" alt="project-img">
-            </div>
-            <div class="col-md-6 col-lg-7 project-card__info">
-                <h3 class="project-card__title">Web app page for trevel company</h3>
-                <p class="project-card__description">
-                    Preference any astonished unreserved mrs. Prosperous understood middletons in conviction an
-                    uncommonly do. Supposing so be resolving breakfast am or perfectly. Is drew am hill from mr.
-                </p>
-                <p class="project-card__stack">Used stack:</p>
-                <ul class="tags">
-                    <li>html5</li>
-                    <li>css3</li>
-                    <li>JavaScript</li>
-                    <li>BEM</li>
-                    <li>bower</li>
-                    <li>grunt</li>
-                </ul>
-                <a href="" class="project-card__link">www.travellend.com</a>
-            </div>
-        </div>
-        <div class="row project-card" data-toggle="modal" data-target="#portfolioModal"
-             data-portfolio-tag="landing-pages">
-            <div class="col-md-6 col-lg-5 project-card__img">
-                <img class="" src="assets/img/img_project_3_mono.png" alt="project-img">
-            </div>
-            <div class="col-md-6 col-lg-7 project-card__info">
-                <h3 class="project-card__title">Admin template for Photo Service</h3>
-                <p class="project-card__description">
-                    Do answered bachelor occasion in of offended no concerns. Supply worthy warmth branch of no ye.
-                    Voice tried known to as my to. Though wished merits or be. Alone visit use these smart rooms ham.
-                </p>
-                <p class="project-card__stack">Used stack:</p>
-                <ul class="tags">
-                    <li>html5</li>
-                    <li>css3</li>
-                    <li>JavaScript</li>
-                    <li>BEM</li>
-                    <li>bower</li>
-                    <li>grunt</li>
-                </ul>
-                <a href="" class="project-card__link">www.coolphoto.com</a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 <!--Portfolio-->

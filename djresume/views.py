@@ -13,6 +13,9 @@ class HomepageTemplateView(generic.TemplateView):
         context['form'] = ContactForm()
         context['testimonials'] = Testimonial.objects.all()
         context['socialmedias'] = SocialMedia.objects.all()
+        context['educations'] = Education.objects.order_by('ordering')
+        context['projects'] = Project.objects.all()
+        context['categories'] = ProjectCategory.objects.all()
         return context
 
 
