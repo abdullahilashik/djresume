@@ -10,13 +10,14 @@ class HomepageTemplateView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['skills'] = Skill.objects.all()
-        context['form'] = ContactForm()
+        # context['form'] = ContactForm()
         context['testimonials'] = Testimonial.objects.all()
-        context['socialmedias'] = SocialMedia.objects.all()
+        # context['socialmedias'] = SocialMedia.objects.all()
         context['educations'] = Education.objects.order_by('ordering')
         context['employments'] = Employment.objects.order_by('ordering')
         context['projects'] = Project.objects.all()
         context['categories'] = ProjectCategory.objects.all()
+        context['blogs'] = Blog.objects.all()
         return context
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from .views import (
     HomepageTemplateView,
     ContactFormView
@@ -10,6 +10,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', HomepageTemplateView.as_view(), name='home'),
     path('contact/', ContactFormView.as_view(), name='contact'),
+    path('blog/', include('blog.urls', namespace='blog')),
     path('admin/', admin.site.urls),
 ]
 

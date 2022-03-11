@@ -117,7 +117,7 @@ class Portfolio(models.Model):
 
 class Blog(models.Model):
     class Meta:
-        verbose_name_plural = 'Blog Profiles'
+        verbose_name_plural = 'Blogs'
         verbose_name = 'Blog'
         ordering = ['timestamp']
 
