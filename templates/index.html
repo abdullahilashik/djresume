@@ -150,29 +150,16 @@
     <div class="row">
         <div class="col-md-8 section__resume resume-list">
             <h3 class="resume-list_title">employment</h3>
-            <div class="resume-list__block">
-                <p class="resume-list__block-title">Apple</p>
-                <p class="resume-list__block-date">2006 - 2010</p>
-                <p>
-                    Senior Full Stack Developer
-                </p>
-            </div>
-            <div class="resume-list__block">
-                <p class="resume-list__block-title">Tech university</p>
-                <p class="resume-list__block-date">2004 - 2005</p>
-                <p>
-                    Awesome developer, lorem ipsum dolor sit amet, conse ctetur adipisicing elit, sed do eius-
-                    mod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                </p>
-            </div>
-            <div class="resume-list__block">
-                <p class="resume-list__block-title">Molly’s studio</p>
-                <p class="resume-list__block-date">2003 - 2006</p>
-                <p>
-                    Programmer Lorem ipsum dolor sit amet, consecte tur adipisicing elit, sed do eiusmod tempor
-                    incididunt ut
-                </p>
-            </div>
+            {% for employment in employments %}
+                <div class="resume-list__block">
+                    <p class="resume-list__block-title">{{ employment.title }}</p>
+                    <p class="resume-list__block-date">{{ employment.year_start }} - {% if employment.is_year_present %}
+                        Present {% else %} {{ employment.year_end }} {% endif %}</p>
+                    <p>
+                        <strong>{{ employment.designation }}</strong> - {{ employment.description }}
+                    </p>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="row section__resume progress-list js-progress-list">
